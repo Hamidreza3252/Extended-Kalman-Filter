@@ -22,7 +22,7 @@ There are three main calculations that need to be done – in an iterative way:
 ![Kalman Filter Overview Chart](images/chart-01.jpg")
 -->
 
-<a href="images/KF-01.jpg" target="_blank"><img src="images/KF-01.jpg" 
+<a href="Images/KF-01.jpg" target="_blank"><img src="Images/KF-01.jpg" 
 alt="Kalman Filter Overview" width="90%" height="90%" border="10" /></a>
 
 ## 1-1. Calculate the Kalman Gain - KG 
@@ -80,7 +80,7 @@ Based on this formula we can see that:
 - If the error in the measurement is very large, $KG \rightarrow 0$, the new error, $E_{EST_{t}}$, goes to zero very slowly. 
 
 
-<a href="images/KF-Steps.gif" target="_blank"><img src="images/KF-Steps.gif" 
+<a href="Images/KF-Steps.gif" target="_blank"><img src="Images/KF-Steps.gif" 
 alt="Kalman Filter Overview" width="90%" height="90%" border="10" /></a>
 
 # 2. Kalman Filter – Multi-Dimensional Matrix Equations 
@@ -324,5 +324,5 @@ It shoud be noted that by updating the **process error estimation**, we keep tra
 
 The **state matrix** and the **process error estimation**, that are updated in the previous step, are then fed into step [2-2](#section_2-1), "Predict New State from the Previous State", to start the next iteration of this process. 
 
-<a href="images/KF-02.jpg" target="_blank"><img src="images/KF-02.jpg" 
+<a href="Images/KF-02.jpg" target="_blank"><img src="Images/KF-02.jpg" 
 alt="Kalman Filter Overview" width="90%" height="90%" border="10" /></a>
