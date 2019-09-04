@@ -2,7 +2,7 @@
 
 # Kalman Filter Cheat Sheet 
 
-- I have prepared this repository to summarize Kalman filter processes based on following resources: 
+- I have prepared this repository to summarize Kalman filter processes based on following resources (the credit mainly goes to them): 
 
   - [Lectures in the Kalman Filter](http://www.ilectureonline.com/lectures/subject/SPECIAL%20TOPICS/26/190)
   - []()
