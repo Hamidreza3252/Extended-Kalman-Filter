@@ -1,6 +1,6 @@
 ### (Work in progress...) 
 
-# Kalman Filter Cheat Sheet 
+# Kalman Filter, An Overview 
 
 - I have prepared this repository to summarize Kalman filter processes based on following resources: 
 
