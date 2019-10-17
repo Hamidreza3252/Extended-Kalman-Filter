@@ -1,0 +1,22 @@
+[
+{
+  "directory": "/home/hamidreza/Documents/Projects/Extended-Kalman-Filter/build",
+  "command": "/bin/g++-8    -Wall -g   -std=c++11 -o CMakeFiles/ExtendedKF.dir/src/main.cpp.o -c /home/hamidreza/Documents/Projects/Extended-Kalman-Filter/src/main.cpp",
+  "file": "/home/hamidreza/Documents/Projects/Extended-Kalman-Filter/src/main.cpp"
+},
+{
+  "directory": "/home/hamidreza/Documents/Projects/Extended-Kalman-Filter/build",
+  "command": "/bin/g++-8    -Wall -g   -std=c++11 -o CMakeFiles/ExtendedKF.dir/src/tools.cpp.o -c /home/hamidreza/Documents/Projects/Extended-Kalman-Filter/src/tools.cpp",
+  "file": "/home/hamidreza/Documents/Projects/Extended-Kalman-Filter/src/tools.cpp"
+},
+{
+  "directory": "/home/hamidreza/Documents/Projects/Extended-Kalman-Filter/build",
+  "command": "/bin/g++-8    -Wall -g   -std=c++11 -o CMakeFiles/ExtendedKF.dir/src/FusionEKF.cpp.o -c /home/hamidreza/Documents/Projects/Extended-Kalman-Filter/src/FusionEKF.cpp",
+  "file": "/home/hamidreza/Documents/Projects/Extended-Kalman-Filter/src/FusionEKF.cpp"
+},
+{
+  "directory": "/home/hamidreza/Documents/Projects/Extended-Kalman-Filter/build",
+  "command": "/bin/g++-8    -Wall -g   -std=c++11 -o CMakeFiles/ExtendedKF.dir/src/kalman_filter.cpp.o -c /home/hamidreza/Documents/Projects/Extended-Kalman-Filter/src/kalman_filter.cpp",
+  "file": "/home/hamidreza/Documents/Projects/Extended-Kalman-Filter/src/kalman_filter.cpp"
+}
+]
