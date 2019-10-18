@@ -26,19 +26,17 @@ FusionEKF::FusionEKF()
 
   //measurement covariance matrix - laser
   R_laser_ << 0.0225, 0,
-              0, 0.0225;
+      0, 0.0225;
 
   //measurement covariance matrix - radar
   R_radar_ << 0.09, 0, 0,
-              0, 0.0009, 0,
-              0, 0, 0.09;
+      0, 0.0009, 0,
+      0, 0, 0.09;
 
   /**
    * TODO: Finish initializing the FusionEKF.
    * TODO: Set the process and measurement noises
    */
-
-
 }
 
 /**
@@ -46,11 +44,13 @@ FusionEKF::FusionEKF()
  */
 FusionEKF::~FusionEKF() {}
 
-void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
+void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack)
+{
   /**
    * Initialization
    */
-  if (!is_initialized_) {
+  if (!is_initialized_)
+  {
     /**
      * TODO: Initialize the state ekf_.x_ with the first measurement.
      * TODO: Create the covariance matrix.
@@ -62,14 +62,14 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
     ekf_.x_ = VectorXd(4);
     ekf_.x_ << 1, 1, 1, 1;
 
-    if (measurement_pack.sensor_type_ == MeasurementPackage::RADAR) {
-      // TODO: Convert radar from polar to cartesian coordinates 
+    if (measurement_pack.sensor_type_ == MeasurementPackage::RADAR)
+    {
+      // TODO: Convert radar from polar to cartesian coordinates
       //         and initialize state.
-
     }
-    else if (measurement_pack.sensor_type_ == MeasurementPackage::LASER) {
+    else if (measurement_pack.sensor_type_ == MeasurementPackage::LASER)
+    {
       // TODO: Initialize state.
-
     }
 
     // done initializing, no need to predict or update
@@ -100,12 +100,13 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
    * - Update the state and covariance matrices.
    */
 
-  if (measurement_pack.sensor_type_ == MeasurementPackage::RADAR) {
+  if (measurement_pack.sensor_type_ == MeasurementPackage::RADAR)
+  {
     // TODO: Radar updates
-
-  } else {
+  }
+  else
+  {
     // TODO: Laser updates
-
   }
 
   // print the output
