@@ -8,33 +8,43 @@ using Eigen::VectorXd;
  *   VectorXd or MatrixXd objects with zeros upon creation.
  */
 
-KalmanFilter::KalmanFilter() {}
+KalmanFilter::KalmanFilter()
+{
 
-KalmanFilter::~KalmanFilter() {}
-
-void KalmanFilter::Init(VectorXd &x_in, MatrixXd &P_in, MatrixXd &F_in,
-                        MatrixXd &H_in, MatrixXd &R_in, MatrixXd &Q_in) {
-  x_ = x_in;
-  P_ = P_in;
-  F_ = F_in;
-  H_ = H_in;
-  R_ = R_in;
-  Q_ = Q_in;
 }
 
-void KalmanFilter::Predict() {
+KalmanFilter::~KalmanFilter()
+{
+
+}
+
+void KalmanFilter::init(VectorXd &x_in, MatrixXd &P_in, MatrixXd &F_in,
+                        MatrixXd &H_in, MatrixXd &R_in, MatrixXd &Q_in)
+{
+  states_ = x_in;
+  stateCovMatrix_ = P_in;
+  stateTransMatrix_ = F_in;
+  measurementMatrix_ = H_in;
+  measurementCovMatrix_ = R_in;
+  processCovMatrix_ = Q_in;
+}
+
+void KalmanFilter::predict()
+{
   /**
    * TODO: predict the state
    */
 }
 
-void KalmanFilter::Update(const VectorXd &z) {
+void KalmanFilter::update(const VectorXd &measurements)
+{
   /**
    * TODO: update the state by using Kalman Filter equations
    */
 }
 
-void KalmanFilter::UpdateEKF(const VectorXd &z) {
+void KalmanFilter::updateEKF(const VectorXd &measurements)
+{
   /**
    * TODO: update the state by using Extended Kalman Filter equations
    */
