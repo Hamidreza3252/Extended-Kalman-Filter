@@ -19,24 +19,58 @@ FusionEKF::FusionEKF()
   previous_timestamp_ = 0;
 
   // initializing matrices
-  R_laser_ = MatrixXd(2, 2);
-  R_radar_ = MatrixXd(3, 3);
-  H_laser_ = MatrixXd(2, 4);
-  Hj_ = MatrixXd(3, 4);
+  covMatrixLaser_ = MatrixXd(2, 2);
+  covMatrixRadar_ = MatrixXd(3, 3);
+  measurementMatrixLaser_ = MatrixXd(2, 4);
+  jacobianMatrixRadar_ = MatrixXd(3, 4);
 
-  //measurement covariance matrix - laser
-  R_laser_ << 0.0225, 0,
+  //measurement covariance matrix - laser, R_laser 
+  covMatrixLaser_ << 0.0225, 0,
       0, 0.0225;
 
-  //measurement covariance matrix - radar
-  R_radar_ << 0.09, 0, 0,
+  // measurement covariance matrix - radar, R_radar
+  covMatrixRadar_ << 0.09, 0, 0,
       0, 0.0009, 0,
       0, 0, 0.09;
+  
+  // measurement matrix for laser readings, H 
+  measurementMatrixLaser_ << 1.0, 0.0, 0.0, 0.0,
+    0.0, 1.0, 0.0, 0.0;
 
-  /**
-   * TODO: Finish initializing the FusionEKF.
-   * TODO: Set the process and measurement noises
-   */
+  // Jacobian matrix of measurement function for radar readings, Hj
+  jacobianMatrixRadar_ << 0.0, 0.0, 0.0, 0.0, 
+    0.0, 0.0, 0.0, 0.0, 
+    0.0, 0.0, 0.0, 0.0;
+
+  // Set the process and measurement noises
+
+  // initial state vector X
+  VectorXd states = VectorXd(4);
+  states << 0.0, 0.0, 0.0, 0.0;
+
+  // initial state covariance matrix P
+  MatrixXd stateCovMatrix = MatrixXd(4, 4);
+  stateCovMatrix << 1.0, 0.0, 0.0, 0.0, 
+    0.0, 1.0, 0.0, 0.0, 
+    0.0, 0.0, 1000.0, 0.0, 
+    0.0, 0.0, 0.0, 1000.0;
+
+  // initialize state transition matrix, F
+  MatrixXd stateTransMatrix = MatrixXd(4, 4);
+  stateTransMatrix << 1.0, 0.0, 0.0, 0.0, 
+    0.0, 1.0, 0.0, 0.0, 
+    0.0, 0.0, 1.0, 0.0, 
+    0.0, 0.0, 0.0, 1.0;
+
+  // initialize process covariance matrix, Q
+  MatrixXd processCovMatrix = MatrixXd(4, 4);
+  processCovMatrix << MatrixXd(4, 4);
+
+  // acceleration noises. they can be set to study the effect of 
+  axNoise_ = 9.0;
+  ayNoise_ = 9.0;
+
+  ekf_.init(states, stateCovMatrix, stateTransMatrix, );
 }
 
 /**
@@ -44,7 +78,7 @@ FusionEKF::FusionEKF()
  */
 FusionEKF::~FusionEKF() {}
 
-void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack)
+void FusionEKF::processMeasurement(const MeasurementPackage &measurement_pack)
 {
   /**
    * Initialization

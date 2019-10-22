@@ -47,16 +47,16 @@ public:
    */
   void updateEKF(const Eigen::VectorXd &measurements);
 
-  // state vector
+  // state vector, X
   Eigen::VectorXd states_;
 
-  // state covariance matrix
+  // state covariance matrix, P
   Eigen::MatrixXd stateCovMatrix_;
 
-  // state transition matrix
+  // state transition matrix, F
   Eigen::MatrixXd stateTransMatrix_;
 
-  // process covariance matrix
+  // process covariance matrix, Q
   Eigen::MatrixXd processCovMatrix_;
 
   // measurement matrix
