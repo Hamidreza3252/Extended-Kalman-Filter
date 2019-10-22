@@ -22,18 +22,25 @@ public:
    * @param P_in Initial state covariance
    * @param F_in Transition matrix
    * @param H_in Measurement matrix
-   * @param R_in Measurement covariance matrix
+   * @param R_laser_in Measurement covariance matrix for laser 
+   * @param R_radar_in Measurement covariance matrix for radar
    * @param Q_in Process covariance matrix
    */
-  void init(Eigen::VectorXd &x_in, Eigen::MatrixXd &P_in, Eigen::MatrixXd &F_in,
-            Eigen::MatrixXd &H_in, Eigen::MatrixXd &R_in, Eigen::MatrixXd &Q_in);
+  void init(const Eigen::MatrixXd &H_in, const Eigen::MatrixXd &Hj_in, const Eigen::MatrixXd &R_laser_in, 
+    const Eigen::MatrixXd &R_radar_in, const float &axNoiseIn, const float &ayNoiseIn);
+
+  /* 
+  void init(const Eigen::VectorXd &x_in, const Eigen::MatrixXd &P_in, const Eigen::MatrixXd &F_in,
+            const Eigen::MatrixXd &H_in_laser, const Eigen::MatrixXd &Hj_in, const Eigen::MatrixXd &R_in, 
+            const Eigen::MatrixXd &Q_in);
+  */
 
   /**
    * Prediction Predicts the state and the state covariance
    * using the process model
    * @param delta_T Time between k and k+1 in s
    */
-  void predict();
+  void predict(const float & deltaT);
 
   /**
    * Updates the state by using standard Kalman Filter equations
@@ -59,11 +66,20 @@ public:
   // process covariance matrix, Q
   Eigen::MatrixXd processCovMatrix_;
 
-  // measurement matrix
-  Eigen::MatrixXd measurementMatrix_;
+  // measurement matrix for laser
+  Eigen::MatrixXd measurementMatrixLaser_;
 
-  // measurement covariance matrix
-  Eigen::MatrixXd measurementCovMatrix_;
+  // measurement Jacobian matrix for radar
+  Eigen::MatrixXd jacobianMatrixRadar_;
+
+  // measurement covariance matrix for laser
+  Eigen::MatrixXd laserMeasurementCovMatrix_;
+
+  // measurement covariance matrix for radar
+  Eigen::MatrixXd radarMeasurementCovMatrix_;
+
+  float axNoise_;
+  float ayNoise_;
 };
 
 #endif // KALMAN_FILTER_H_

@@ -44,39 +44,20 @@ FusionEKF::FusionEKF()
 
   // Set the process and measurement noises
 
-  // initial state vector X
-  VectorXd states = VectorXd(4);
-  states << 0.0, 0.0, 0.0, 0.0;
-
-  // initial state covariance matrix P
-  MatrixXd stateCovMatrix = MatrixXd(4, 4);
-  stateCovMatrix << 1.0, 0.0, 0.0, 0.0, 
-    0.0, 1.0, 0.0, 0.0, 
-    0.0, 0.0, 1000.0, 0.0, 
-    0.0, 0.0, 0.0, 1000.0;
-
-  // initialize state transition matrix, F
-  MatrixXd stateTransMatrix = MatrixXd(4, 4);
-  stateTransMatrix << 1.0, 0.0, 0.0, 0.0, 
-    0.0, 1.0, 0.0, 0.0, 
-    0.0, 0.0, 1.0, 0.0, 
-    0.0, 0.0, 0.0, 1.0;
-
-  // initialize process covariance matrix, Q
-  MatrixXd processCovMatrix = MatrixXd(4, 4);
-  processCovMatrix << MatrixXd(4, 4);
-
   // acceleration noises. they can be set to study the effect of 
   axNoise_ = 9.0;
   ayNoise_ = 9.0;
 
-  ekf_.init(states, stateCovMatrix, stateTransMatrix, );
+  ekf_.init(measurementMatrixLaser_, jacobianMatrixRadar_, covMatrixLaser_, covMatrixRadar_, axNoise_, ayNoise_);
 }
 
 /**
  * Destructor.
  */
-FusionEKF::~FusionEKF() {}
+FusionEKF::~FusionEKF()
+{
+  
+}
 
 void FusionEKF::processMeasurement(const MeasurementPackage &measurement_pack)
 {
