@@ -26,8 +26,10 @@ public:
    * @param R_radar_in Measurement covariance matrix for radar
    * @param Q_in Process covariance matrix
    */
-  void init(const Eigen::MatrixXd &H_in, const Eigen::MatrixXd &Hj_in, const Eigen::MatrixXd &R_laser_in, 
-    const Eigen::MatrixXd &R_radar_in, const float &axNoiseIn, const float &ayNoiseIn);
+  //void init(const Eigen::MatrixXd &H_in, const Eigen::MatrixXd &Hj_in, const Eigen::MatrixXd &R_laser_in, 
+  //  const Eigen::MatrixXd &R_radar_in, const float &axNoiseIn, const float &ayNoiseIn);
+
+  void init(void);
 
   /* 
   void init(const Eigen::VectorXd &x_in, const Eigen::MatrixXd &P_in, const Eigen::MatrixXd &F_in,
@@ -40,19 +42,20 @@ public:
    * using the process model
    * @param delta_T Time between k and k+1 in s
    */
-  void predict(const float & deltaT);
+  void predict(const float &deltaT, float axNoise, float ayNoise);
 
   /**
    * Updates the state by using standard Kalman Filter equations
    * @param measurements The measurement at k+1
    */
-  void update(const Eigen::VectorXd &measurements);
+  void update(const Eigen::VectorXd &measurements, const MatrixXd &measurementMatrix, const MatrixXd &measurementCovMatrix);
 
   /**
    * Updates the state by using Extended Kalman Filter equations
    * @param measurements The measurement at k+1
    */
-  void updateEKF(const Eigen::VectorXd &measurements);
+  void updateEKF(const Eigen::VectorXd &measurements, const VectorXd &mappedStates, 
+    const MatrixXd &measurementMatrix, const MatrixXd &measurementCovMatrix);
 
   // state vector, X
   Eigen::VectorXd states_;
@@ -66,11 +69,12 @@ public:
   // process covariance matrix, Q
   Eigen::MatrixXd processCovMatrix_;
 
+  /*
   // measurement matrix for laser
-  Eigen::MatrixXd measurementMatrixLaser_;
+  Eigen::MatrixXd laserMeasurementMatrix_;
 
   // measurement Jacobian matrix for radar
-  Eigen::MatrixXd jacobianMatrixRadar_;
+  Eigen::MatrixXd radarMeasurementMatrix_;
 
   // measurement covariance matrix for laser
   Eigen::MatrixXd laserMeasurementCovMatrix_;
@@ -80,6 +84,7 @@ public:
 
   float axNoise_;
   float ayNoise_;
+  */
 };
 
 #endif // KALMAN_FILTER_H_

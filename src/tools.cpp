@@ -13,18 +13,42 @@ Tools::~Tools()
 {
 }
 
-VectorXd Tools::CalculateRMSE(const vector<VectorXd> &estimations,
-                              const vector<VectorXd> &ground_truth)
+VectorXd Tools::calculateRMSE(const vector<VectorXd> &estimations,
+                              const vector<VectorXd> &groundTruths)
 {
    /**
-   * TODO: Calculate the RMSE here.
+   * Calculate the RMSE here.
    */
 }
 
-MatrixXd Tools::jacobian(const VectorXd &states)
+MatrixXd Tools::jacobian(const VectorXd &states, float tol)
 {
    /**
    * Calculate a Jacobian here.
    */
-  
+   // MatrixXd jacobianMatrix = MatrixXd(3, 4);
+   MatrixXd jacobianMatrix = MatrixXd::Zero(3, 4);
+
+   const float &x = states(0);
+   const float &y = states(1);
+   const float &vx = states(2);
+   const float &vy = states(3);
+
+   float denomBase = x * x + y * y;
+
+   if (fabs(denomBase) < tol)
+   {
+      std::cout << "Jacobian matrix error - division by zero" << std::endl;
+
+      return jacobianMatrix;
+   }
+
+   float denomBase_1_2 = sqrt(denomBase);
+   float denomBase_3_2 = denomBase * denomBase_1_2;
+
+   jacobianMatrix << x / denomBase_1_2, y / denomBase_1_2, 0.0, 0.0,
+      -y / denomBase, x / denomBase, 0.0, 0.0, 
+      y*(vx*y - vy*x) / denomBase_3_2, x*(vy*x - vx*y) / denomBase_3_2, x / denomBase_1_2, y / denomBase_1_2;
+
+   return jacobianMatrix;
 }

@@ -25,7 +25,7 @@ public:
   /**
    * Run the whole flow of the Kalman Filter from here.
    */
-  void processMeasurement(const MeasurementPackage &measurement_pack);
+  void processMeasurement(const MeasurementPackage &measurementPack);
 
   /**
    * Kalman Filter update and prediction math lives in here.
@@ -43,8 +43,8 @@ private:
   Tools tools;
   Eigen::MatrixXd covMatrixLaser_;
   Eigen::MatrixXd covMatrixRadar_;
-  Eigen::MatrixXd measurementMatrixLaser_;
-  Eigen::MatrixXd jacobianMatrixRadar_;
+  Eigen::MatrixXd laserMeasurementMatrix_;
+  Eigen::MatrixXd radarJacobianMatrix_;
 
   float axNoise_;
   float ayNoise_;

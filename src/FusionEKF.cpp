@@ -21,8 +21,8 @@ FusionEKF::FusionEKF()
   // initializing matrices
   covMatrixLaser_ = MatrixXd(2, 2);
   covMatrixRadar_ = MatrixXd(3, 3);
-  measurementMatrixLaser_ = MatrixXd(2, 4);
-  jacobianMatrixRadar_ = MatrixXd(3, 4);
+  laserMeasurementMatrix_ = MatrixXd(2, 4);
+  radarJacobianMatrix_ = MatrixXd(3, 4);
 
   //measurement covariance matrix - laser, R_laser 
   covMatrixLaser_ << 0.0225, 0,
@@ -34,11 +34,11 @@ FusionEKF::FusionEKF()
       0, 0, 0.09;
   
   // measurement matrix for laser readings, H 
-  measurementMatrixLaser_ << 1.0, 0.0, 0.0, 0.0,
+  laserMeasurementMatrix_ << 1.0, 0.0, 0.0, 0.0,
     0.0, 1.0, 0.0, 0.0;
 
   // Jacobian matrix of measurement function for radar readings, Hj
-  jacobianMatrixRadar_ << 0.0, 0.0, 0.0, 0.0, 
+  radarJacobianMatrix_ << 0.0, 0.0, 0.0, 0.0, 
     0.0, 0.0, 0.0, 0.0, 
     0.0, 0.0, 0.0, 0.0;
 
@@ -48,7 +48,7 @@ FusionEKF::FusionEKF()
   axNoise_ = 9.0;
   ayNoise_ = 9.0;
 
-  ekf_.init(measurementMatrixLaser_, jacobianMatrixRadar_, covMatrixLaser_, covMatrixRadar_, axNoise_, ayNoise_);
+  ekf_.init();
 }
 
 /**
@@ -59,7 +59,7 @@ FusionEKF::~FusionEKF()
   
 }
 
-void FusionEKF::processMeasurement(const MeasurementPackage &measurement_pack)
+void FusionEKF::processMeasurement(const MeasurementPackage &measurementPack)
 {
   /**
    * Initialization
@@ -77,12 +77,12 @@ void FusionEKF::processMeasurement(const MeasurementPackage &measurement_pack)
     ekf_.states_ = VectorXd(4);
     ekf_.states_ << 1, 1, 1, 1;
 
-    if (measurement_pack.sensor_type_ == MeasurementPackage::RADAR)
+    if (measurementPack.sensor_type_ == MeasurementPackage::RADAR)
     {
       // TODO: Convert radar from polar to cartesian coordinates
       //         and initialize state.
     }
-    else if (measurement_pack.sensor_type_ == MeasurementPackage::LASER)
+    else if (measurementPack.sensor_type_ == MeasurementPackage::LASER)
     {
       // TODO: Initialize state.
     }
@@ -115,7 +115,7 @@ void FusionEKF::processMeasurement(const MeasurementPackage &measurement_pack)
    * - Update the state and covariance matrices.
    */
 
-  if (measurement_pack.sensor_type_ == MeasurementPackage::RADAR)
+  if (measurementPack.sensor_type_ == MeasurementPackage::RADAR)
   {
     // TODO: Radar updates
   }
