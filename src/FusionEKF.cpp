@@ -103,7 +103,7 @@ void FusionEKF::processMeasurement(const MeasurementPackage &measurementPack)
    * Use noise_ax = 9 and noise_ay = 9 for your Q matrix.
    */
 
-  ekf_.predict();
+  // kf_.predict();
 
   /**
    * Update

@@ -21,7 +21,7 @@ KalmanFilter::~KalmanFilter()
 // void KalmanFilter::init(const Eigen::MatrixXd &H_in, const Eigen::MatrixXd &Hj_in, const Eigen::MatrixXd &R_laser_in, 
 //  const Eigen::MatrixXd &R_radar_in, const float &axNoiseIn, const float &ayNoiseIn)
 
-void KalmanFilter::init(voif)
+void KalmanFilter::init(void)
 {
   /*
   states_ = x_in;

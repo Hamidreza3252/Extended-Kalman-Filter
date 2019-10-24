@@ -48,14 +48,14 @@ public:
    * Updates the state by using standard Kalman Filter equations
    * @param measurements The measurement at k+1
    */
-  void update(const Eigen::VectorXd &measurements, const MatrixXd &measurementMatrix, const MatrixXd &measurementCovMatrix);
+  void update(const Eigen::VectorXd &measurements, const Eigen::MatrixXd &measurementMatrix, const Eigen::MatrixXd &measurementCovMatrix);
 
   /**
    * Updates the state by using Extended Kalman Filter equations
    * @param measurements The measurement at k+1
    */
-  void updateEKF(const Eigen::VectorXd &measurements, const VectorXd &mappedStates, 
-    const MatrixXd &measurementMatrix, const MatrixXd &measurementCovMatrix);
+  void updateEKF(const Eigen::VectorXd &measurements, const Eigen::VectorXd &mappedStates, 
+    const Eigen::MatrixXd &measurementMatrix, const Eigen::MatrixXd &measurementCovMatrix);
 
   // state vector, X
   Eigen::VectorXd states_;

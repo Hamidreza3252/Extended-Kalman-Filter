@@ -19,6 +19,30 @@ VectorXd Tools::calculateRMSE(const vector<VectorXd> &estimations,
    /**
    * Calculate the RMSE here.
    */
+
+   VectorXd rsmeVector = Eigen::VectorXd::Zero(4);
+
+   if (estimations.size() != groundTruths.size() || estimations.size() == 0)
+   {
+      std::cout << "Invaid estimation or groundtruth data" << std::endl;
+
+      rsmeVector = VectorXd::Ones(4) * -1.0;
+
+      return rsmeVector;
+   }
+
+   for (unsigned int i = 0; i < rsmeVector.size(); i++)
+   {
+      VectorXd residuals = estimations[i] - groundTruths[i];
+
+      // coefficient-wise multiplication
+      residuals = residuals.array() * residuals.array();
+      rsmeVector += residuals;
+   }
+
+   rsmeVector = (rsmeVector / rsmeVector.size()).array().sqrt();
+
+   return rsmeVector;
 }
 
 MatrixXd Tools::jacobian(const VectorXd &states, float tol)
@@ -47,8 +71,8 @@ MatrixXd Tools::jacobian(const VectorXd &states, float tol)
    float denomBase_3_2 = denomBase * denomBase_1_2;
 
    jacobianMatrix << x / denomBase_1_2, y / denomBase_1_2, 0.0, 0.0,
-      -y / denomBase, x / denomBase, 0.0, 0.0, 
-      y*(vx*y - vy*x) / denomBase_3_2, x*(vy*x - vx*y) / denomBase_3_2, x / denomBase_1_2, y / denomBase_1_2;
+       -y / denomBase, x / denomBase, 0.0, 0.0,
+       y * (vx * y - vy * x) / denomBase_3_2, x * (vy * x - vx * y) / denomBase_3_2, x / denomBase_1_2, y / denomBase_1_2;
 
    return jacobianMatrix;
 }
