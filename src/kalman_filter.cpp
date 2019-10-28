@@ -77,9 +77,9 @@ void KalmanFilter::predict(const float &deltaT, float axNoise, float ayNoise)
    */
 
   // updating state transition matrix 
-  stateTransMatrix_ << 1.0, deltaT, 0.0, 0.0, 
-    0.0, 1.0, 0.0, 0.0, 
-    0.0, 0.0, 1.0, deltaT, 
+  stateTransMatrix_ << 1.0, 0.0, deltaT, 0.0, 
+    0.0, 1.0, 0.0, deltaT, 
+    0.0, 0.0, 1.0, 0.0, 
     0.0, 0.0, 0.0, 1.0;
 
   // updating process covariance matrix 
@@ -138,5 +138,5 @@ void KalmanFilter::updateEKF(const VectorXd &measurements, const VectorXd &mappe
 
   // P_{k} = (I - K * H) * P{kp}
   // P_{k} = (I - K * Hj) * P{kp}
-  stateCovMatrix_ += (MatrixXd::Identity(4, 4) - kalmanGain * measurementMatrix);
+  stateCovMatrix_ = (MatrixXd::Identity(4, 4) - kalmanGain * measurementMatrix) * stateCovMatrix_;
 }
