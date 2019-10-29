@@ -26,7 +26,7 @@ public:
   /**
    * A helper method to calculate Jacobians.
    */
-  Eigen::MatrixXd jacobian(const Eigen::VectorXd &states, float tol);
+  Eigen::MatrixXd calculateJacobian(const Eigen::VectorXd &states, float tol);
 };
 
 #endif // TOOLS_H_
