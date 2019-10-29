@@ -14,9 +14,9 @@ using std::vector;
  */
 FusionEKF::FusionEKF()
 {
-  is_initialized_ = false;
+  isInitialized_ = false;
 
-  previous_timestamp_ = 0;
+  previousTimestamp_ = 0;
 
   // initializing matrices
   covMatrixLaser_ = MatrixXd(2, 2);
@@ -64,7 +64,7 @@ void FusionEKF::processMeasurement(const MeasurementPackage &measurementPack)
   /**
    * Initialization
    */
-  if (!is_initialized_)
+  if (!isInitialized_)
   {
     /**
      * Initialize the state ekf_.x_ with the first measurement.
@@ -77,18 +77,34 @@ void FusionEKF::processMeasurement(const MeasurementPackage &measurementPack)
     ekf_.states_ = VectorXd(4);
     ekf_.states_ << 1, 1, 1, 1;
 
-    if (measurementPack.sensor_type_ == MeasurementPackage::RADAR)
+    if (measurementPack.sensorType_ == MeasurementPackage::RADAR)
     {
-      // TODO: Convert radar from polar to cartesian coordinates
-      //         and initialize state.
+      // Convert radar from polar to cartesian coordinates and initialize state.
+
+      const float &rho = measurementPack.rawMeasurements_[0];
+      const float &theta = measurementPack.rawMeasurements_[1];
+      const float &rhoDot = measurementPack.rawMeasurements_[2];
+
+      ekf_.states_ << rho * cos(theta), 
+        rho * sin(theta), 
+        rhoDot * cos(theta), 
+        rhoDot * sin(theta);
     }
-    else if (measurementPack.sensor_type_ == MeasurementPackage::LASER)
+    else if (measurementPack.sensorType_ == MeasurementPackage::LASER)
     {
-      // TODO: Initialize state.
+      // Initialize state.
+
+      ekf_.states_ << measurementPack.rawMeasurements_[0], 
+        measurementPack.rawMeasurements_[1], 
+        measurementPack.rawMeasurements_[2], 
+        measurementPack.rawMeasurements_[3];
     }
 
+    previousTimestamp_ = measurementPack.timestamp_;
+
     // done initializing, no need to predict or update
-    is_initialized_ = true;
+    isInitialized_ = true;
+
     return;
   }
 
@@ -97,31 +113,49 @@ void FusionEKF::processMeasurement(const MeasurementPackage &measurementPack)
    */
 
   /**
-   * TODO: Update the state transition matrix F according to the new elapsed time.
+   * Update the state transition matrix F according to the new elapsed time.
    * Time is measured in seconds.
-   * TODO: Update the process noise covariance matrix.
+   * Update the process noise covariance matrix.
    * Use noise_ax = 9 and noise_ay = 9 for your Q matrix.
    */
 
-  // kf_.predict();
+  float deltaT = (measurementPack.timestamp_ - previousTimestamp_) / 1e6;
+  previousTimestamp_ = measurementPack.timestamp_;
+
+  ekf_.predict(deltaT, axNoise_, ayNoise_);
 
   /**
    * Update
    */
 
   /**
-   * TODO:
    * - Use the sensor type to perform the update step.
    * - Update the state and covariance matrices.
    */
 
-  if (measurementPack.sensor_type_ == MeasurementPackage::RADAR)
+  const float &x = ekf_.states_[0];
+  const float &xDot = ekf_.states_[1];
+  const float &y = ekf_.states_[2];
+  const float &yDot = ekf_.states_[3];
+
+  if (measurementPack.sensorType_ == MeasurementPackage::RADAR)
   {
-    // TODO: Radar updates
+    // Radar updates
+    Eigen::VectorXd mappedStates = Eigen::VectorXcd(3);
+
+    // ekf_.states_
+
+    float commonTerm = sqrt(x*x + y*y);
+
+    mappedStates << commonTerm, 
+      atan2(y, x), 
+      (x * xDot + y * yDot) / commonTerm;
   }
   else
   {
-    // TODO: Laser updates
+    // Laser updates
+
+    
   }
 
   // print the output

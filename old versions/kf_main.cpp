@@ -50,13 +50,13 @@ int main()
     if (sensor_type.compare("L") == 0)
     { // laser measurement
       // read measurements
-      meas_package.sensor_type_ = MeasurementPackage::LASER;
-      meas_package.raw_measurements_ = VectorXd(2);
+      meas_package.sensorType_ = MeasurementPackage::LASER;
+      meas_package.rawMeasurements_ = VectorXd(2);
       float x;
       float y;
       iss >> x;
       iss >> y;
-      meas_package.raw_measurements_ << x, y;
+      meas_package.rawMeasurements_ << x, y;
       iss >> timestamp;
       meas_package.timestamp_ = timestamp;
       measurement_pack_list.push_back(meas_package);

@@ -34,10 +34,10 @@ public:
 
 private:
   // check whether the tracking toolbox was initialized or not (first measurement)
-  bool is_initialized_;
+  bool isInitialized_;
 
   // previous timestamp
-  long long previous_timestamp_;
+  long long previousTimestamp_;
 
   // tool object used to compute Jacobian and RMSE
   Tools tools;

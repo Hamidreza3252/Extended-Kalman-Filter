@@ -60,8 +60,8 @@ void Tracking::ProcessMeasurement(const MeasurementPackage &measurement_pack)
     cout << "Kalman Filter Initialization " << endl;
 
     // set the state with the initial location and zero velocity
-    kf_.x_ << measurement_pack.raw_measurements_[0],
-        measurement_pack.raw_measurements_[1],
+    kf_.x_ << measurement_pack.rawMeasurements_[0],
+        measurement_pack.rawMeasurements_[1],
         0,
         0;
 
@@ -96,7 +96,7 @@ void Tracking::ProcessMeasurement(const MeasurementPackage &measurement_pack)
   kf_.Predict();
 
   // 4. Call the Kalman Filter update() function with the most recent raw measurements_
-  kf_.Update(measurement_pack.raw_measurements_);
+  kf_.Update(measurement_pack.rawMeasurements_);
 
   cout << "x_= " << kf_.x_ << endl;
   cout << "P_= " << kf_.P_ << endl;

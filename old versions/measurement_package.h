@@ -11,9 +11,9 @@ public:
     {
         LASER,
         RADAR
-    } sensor_type_;
+    } sensorType_;
 
-    Eigen::VectorXd raw_measurements_;
+    Eigen::VectorXd rawMeasurements_;
 
     int64_t timestamp_;
 };
