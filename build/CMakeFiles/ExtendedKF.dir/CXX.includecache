@@ -6,32 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/home/hamidreza/Documents/Projects/Extended-Kalman-Filter/src/FusionEKF.cpp
-FusionEKF.h
-/home/hamidreza/Documents/Projects/Extended-Kalman-Filter/src/FusionEKF.h
-iostream
--
-eigen-323c052e1731/Eigen/Dense
-/home/hamidreza/Documents/Projects/Extended-Kalman-Filter/src/eigen-323c052e1731/Eigen/Dense
-tools.h
-/home/hamidreza/Documents/Projects/Extended-Kalman-Filter/src/tools.h
-
-/home/hamidreza/Documents/Projects/Extended-Kalman-Filter/src/FusionEKF.h
-fstream
--
-string
--
-vector
--
-eigen-323c052e1731/Eigen/Dense
-/home/hamidreza/Documents/Projects/Extended-Kalman-Filter/src/eigen-323c052e1731/Eigen/Dense
-kalman_filter.h
-/home/hamidreza/Documents/Projects/Extended-Kalman-Filter/src/kalman_filter.h
-measurement_package.h
-/home/hamidreza/Documents/Projects/Extended-Kalman-Filter/src/measurement_package.h
-tools.h
-/home/hamidreza/Documents/Projects/Extended-Kalman-Filter/src/tools.h
-
 /home/hamidreza/Documents/Projects/Extended-Kalman-Filter/src/eigen-323c052e1731/Eigen/Cholesky
 Core
 /home/hamidreza/Documents/Projects/Extended-Kalman-Filter/src/eigen-323c052e1731/Eigen/Core
@@ -1092,13 +1066,11 @@ lapacke_mangling.h
 
 /home/hamidreza/Documents/Projects/Extended-Kalman-Filter/src/eigen-323c052e1731/Eigen/src/plugins/MatrixCwiseUnaryOps.h
 
-/home/hamidreza/Documents/Projects/Extended-Kalman-Filter/src/kalman_filter.h
-eigen-323c052e1731/Eigen/Dense
-/home/hamidreza/Documents/Projects/Extended-Kalman-Filter/src/eigen-323c052e1731/Eigen/Dense
-
-/home/hamidreza/Documents/Projects/Extended-Kalman-Filter/src/measurement_package.h
-eigen-323c052e1731/Eigen/Dense
-/home/hamidreza/Documents/Projects/Extended-Kalman-Filter/src/eigen-323c052e1731/Eigen/Dense
+/home/hamidreza/Documents/Projects/Extended-Kalman-Filter/src/tools.cpp
+tools.h
+/home/hamidreza/Documents/Projects/Extended-Kalman-Filter/src/tools.h
+iostream
+-
 
 /home/hamidreza/Documents/Projects/Extended-Kalman-Filter/src/tools.h
 vector

@@ -95,9 +95,9 @@ void FusionEKF::processMeasurement(const MeasurementPackage &measurementPack)
       // Initialize state.
 
       ekf_.states_ << measurementPack.rawMeasurements_[0], 
+        0.0, 
         measurementPack.rawMeasurements_[1], 
-        measurementPack.rawMeasurements_[2], 
-        measurementPack.rawMeasurements_[3];
+        0.0;
     }
 
     previousTimestamp_ = measurementPack.timestamp_;
@@ -142,6 +142,8 @@ void FusionEKF::processMeasurement(const MeasurementPackage &measurementPack)
   Eigen::MatrixXd measurementMatrix;
   Eigen::MatrixXd measurementCovMatrix;
   float jacobianTol = 1e-4;
+
+  // https://github.com/udacity/self-driving-car-sim/releases
 
   if (measurementPack.sensorType_ == MeasurementPackage::RADAR)
   {
