@@ -95,8 +95,8 @@ void FusionEKF::processMeasurement(const MeasurementPackage &measurementPack)
       // Initialize state.
 
       ekf_.states_ << measurementPack.rawMeasurements_[0], 
-        0.0, 
         measurementPack.rawMeasurements_[1], 
+        0.0, 
         0.0;
     }
 

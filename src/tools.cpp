@@ -40,7 +40,7 @@ VectorXd Tools::calculateRMSE(const vector<VectorXd> &estimations,
       rsmeVector += residuals;
    }
 
-   rsmeVector = (rsmeVector / rsmeVector.size()).array().sqrt();
+   rsmeVector = (rsmeVector / estimations.size()).array().sqrt();
 
    return rsmeVector;
 }
