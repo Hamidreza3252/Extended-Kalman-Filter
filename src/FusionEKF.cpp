@@ -134,8 +134,8 @@ void FusionEKF::processMeasurement(const MeasurementPackage &measurementPack)
    */
 
   const float &x = ekf_.states_[0];
-  const float &xDot = ekf_.states_[1];
-  const float &y = ekf_.states_[2];
+  const float &y = ekf_.states_[1];
+  const float &xDot = ekf_.states_[2];
   const float &yDot = ekf_.states_[3];
 
   Eigen::VectorXd mappedStates;
@@ -159,7 +159,7 @@ void FusionEKF::processMeasurement(const MeasurementPackage &measurementPack)
       (x * xDot + y * yDot) / commonTerm;
 
     measurementMatrix = tools.calculateJacobian(ekf_.states_, jacobianTol);
-    // measurementCovMatrix = covMatrixRadar_;
+    measurementCovMatrix = covMatrixRadar_;
   }
   else
   {
@@ -167,12 +167,12 @@ void FusionEKF::processMeasurement(const MeasurementPackage &measurementPack)
 
     mappedStates = laserMeasurementMatrix_ * ekf_.states_;
     measurementMatrix = laserMeasurementMatrix_; 
-    // measurementCovMatrix = covMatrixLaser_;
+    measurementCovMatrix = covMatrixLaser_;
   }
 
-  // ekf_.updateEKF(measurementPack.rawMeasurements_, mappedStates, measurementMatrix, measurementCovMatrix);
+  ekf_.updateEKF(measurementPack.rawMeasurements_, mappedStates, measurementMatrix, measurementCovMatrix);
 
   // print the output
   cout << "x_ = " << ekf_.states_ << endl;
-  cout << "P_ = " << ekf_.stateCovMatrix_ << endl;
+  // cout << "P_ = " << ekf_.stateCovMatrix_ << endl;
 }

@@ -20,6 +20,7 @@ VectorXd Tools::calculateRMSE(const vector<VectorXd> &estimations,
    * Calculate the RMSE here.
    */
 
+   VectorXd incrementalErrors;
    VectorXd rsmeVector = Eigen::VectorXd::Zero(4);
 
    if (estimations.size() != groundTruths.size() || estimations.size() == 0)
@@ -33,11 +34,10 @@ VectorXd Tools::calculateRMSE(const vector<VectorXd> &estimations,
 
    for (unsigned int i = 0; i < estimations.size(); i++)
    {
-      VectorXd residuals = estimations[i] - groundTruths[i];
+      incrementalErrors = groundTruths[i] - estimations[i];
 
       // coefficient-wise multiplication
-      residuals = residuals.array() * residuals.array();
-      rsmeVector += residuals;
+      rsmeVector = rsmeVector.array() + incrementalErrors.array() * incrementalErrors.array();
    }
 
    rsmeVector = (rsmeVector / estimations.size()).array().sqrt();
