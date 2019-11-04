@@ -163,15 +163,6 @@ int main()
 
           if(fusionEKF.timeCounter_ >= 270 && fusionEKF.timeCounter_ <= 275)
           {
-            if(meas_package.sensorType_ == MeasurementPackage::RADAR)
-            {
-              std::cout << "RADAR  ---  ";
-            }
-            else
-            {
-              std::cout << "LIDAR  ---  ";
-            }
-
             std::cout << "Accuracy RMSE: " << RMSE << std::endl;
           }
 
