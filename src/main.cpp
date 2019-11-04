@@ -13,6 +13,7 @@ using std::vector;
 // for convenience
 using json = nlohmann::json;
 
+// ====================================================================================================================
 // Checks if the SocketIO event has JSON data.
 // If there is data the JSON object in string format will be returned,
 // else the empty string "" will be returned.
@@ -32,8 +33,29 @@ string hasData(string s)
   return "";
 }
 
+// ====================================================================================================================
+void readDataFromSocket(void)
+{
+
+}
+
+// ====================================================================================================================
+void readDataFromFile(void)
+{
+
+}
+
+// ====================================================================================================================
 int main()
 {
+  enum InputDataSource
+  {
+      SOCKET,
+      FILE
+  } inputDataSource;
+
+  inputDataSource = InputDataSource::SOCKET;
+
   uWS::Hub h;
 
   // Create a Kalman Filter instance
@@ -44,8 +66,8 @@ int main()
   vector<VectorXd> estimations;
   vector<VectorXd> ground_truth;
 
-  h.onMessage([&fusionEKF, &tools, &estimations, &ground_truth](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length,
-                                                                uWS::OpCode opCode) {
+  h.onMessage([&fusionEKF, &tools, &estimations, &ground_truth, &inputDataSource](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length, uWS::OpCode opCode)
+  {
     // "42" at the start of the message means there's a websocket message event.
     // The 4 signifies a websocket message
     // The 2 signifies a websocket event
@@ -61,10 +83,11 @@ int main()
 
         if (event == "telemetry")
         {
+          MeasurementPackage meas_package;
+
           // j[1] is the data JSON object
           string sensor_measurement = j[1]["sensor_measurement"];
 
-          MeasurementPackage meas_package;
           std::istringstream iss(sensor_measurement);
 
           long long timestamp;
@@ -137,7 +160,22 @@ int main()
           estimations.push_back(estimate);
 
           VectorXd RMSE = tools.calculateRMSE(estimations, ground_truth);
-          std::cout << "Accuracy RMSE: " << RMSE << std::endl;
+
+          if(fusionEKF.timeCounter_ >= 270 && fusionEKF.timeCounter_ <= 275)
+          {
+            if(meas_package.sensorType_ == MeasurementPackage::RADAR)
+            {
+              std::cout << "RADAR  ---  ";
+            }
+            else
+            {
+              std::cout << "LIDAR  ---  ";
+            }
+
+            std::cout << "Accuracy RMSE: " << RMSE << std::endl;
+          }
+
+          // std::cout << "Accuracy RMSE: " << RMSE << std::endl;
 
           json msgJson;
           msgJson["estimate_x"] = p_x;

@@ -1,0 +1,123 @@
+Hamid-02
+mappedStates:
+-5.16731
+0.760642
+measurementMatrix:
+1 0 0 0
+0 1 0 0
+measurementCovMatrix:
+0.0225      0
+0 0.0225
+
+
+
+LIDAR  ---  Accuracy RMSE: 
+0.0995007
+0.0837536
+  0.55222
+ 0.430824
+Hamid-02
+mappedStates:5.24463
+3.03681
+1.48287
+measurementMatrix: 
+-0.994515    0.10459          0          0
+-0.0199423  -0.189626          0          0
+-0.0959046  -0.911928  -0.994515    0.10459
+measurementCovMatrix:  
+     0.09      0      0
+     0 0.0009      0
+     0      0   0.09
+
+
+
+RADAR  ---  Accuracy RMSE: 
+0.0993709
+0.0837533
+ 0.551205
+ 0.430185
+Hamid-01
+states:-5.32323
+0.207157
+-2.06723
+ -4.9207
+Hamid-02
+mappedStates:-5.32323
+0.207157
+measurementMatrix:1 0 0 0
+0 1 0 0
+measurementCovMatrix:
+     0.0225      0
+     0 0.0225
+
+
+
+LIDAR  ---  Accuracy RMSE: 
+0.0991961
+0.0837413
+ 0.550234
+ 0.429493
+Hamid-01
+states:  
+-5.39192
+-0.0228905
+  -2.01086
+  -4.86364
+Hamid-02
+mappedStates: 
+5.39197
+-3.13735
+ 2.03148
+measurementMatrix:  
+-0.999991 -0.00424529           0           0
+0.000787337   -0.185459           0           0
+ 0.00382257   -0.900417   -0.999991 -0.00424529
+measurementCovMatrix:  
+     0.09      0      0
+     0 0.0009      0
+     0      0   0.09
+
+
+
+RADAR  ---  Accuracy RMSE: 
+0.101625
+0.501239
+0.612276
+ 1.58917
+Hamid-02
+mappedStates:
+-4.88321
+-9.61653
+measurementMatrix:
+1 0 0 0
+0 1 0 0
+measurementCovMatrix:
+     0.0225      0
+     0 0.0225
+
+
+
+LIDAR  ---  Accuracy RMSE: 0.104585
+0.649554
+0.643509
+ 1.89989
+Hamid-02
+mappedStates: 
+9.55576
+-2.12234
+ 18.1467
+measurementMatrix: 
+ -0.524007  -0.851714          0          0
+  0.089131 -0.0548368          0          0
+  1.11534  -0.686201  -0.524007  -0.851714
+measurementCovMatrix:  0.09      0      0
+     0 0.0009      0
+     0      0   0.09
+
+
+
+RADAR  ---  Accuracy RMSE: 0.105656
+ 0.73056
+0.686428
+ 1.94784
+

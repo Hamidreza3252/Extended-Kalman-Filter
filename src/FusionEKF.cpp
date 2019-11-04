@@ -48,6 +48,8 @@ FusionEKF::FusionEKF()
   axNoise_ = 9.0;
   ayNoise_ = 9.0;
 
+  timeCounter_ = 0;
+
   ekf_.init();
 }
 
@@ -145,6 +147,14 @@ void FusionEKF::processMeasurement(const MeasurementPackage &measurementPack)
 
   // https://github.com/udacity/self-driving-car-sim/releases
 
+  timeCounter_++;
+
+  if(timeCounter_ == 272 || timeCounter_ == 273)
+  {
+    cout << "Hamid-01" << endl;
+    cout << "states:" << ekf_.states_ << endl;
+  }
+
   if (measurementPack.sensorType_ == MeasurementPackage::RADAR)
   {
     // Radar updates
@@ -170,9 +180,17 @@ void FusionEKF::processMeasurement(const MeasurementPackage &measurementPack)
     measurementCovMatrix = covMatrixLaser_;
   }
 
+  if(timeCounter_ >= 270 && timeCounter_ <= 275)
+  {
+    cout << "Hamid-02" << endl;
+    cout << "mappedStates:" << mappedStates << endl;
+    cout << "measurementMatrix:" << measurementMatrix << endl;
+    cout << "measurementCovMatrix:" << measurementCovMatrix << endl;
+  }
+
   ekf_.updateEKF(measurementPack.rawMeasurements_, mappedStates, measurementMatrix, measurementCovMatrix);
 
   // print the output
-  cout << "x_ = " << ekf_.states_ << endl;
+  // cout << "x_ = " << ekf_.states_ << endl;
   // cout << "P_ = " << ekf_.stateCovMatrix_ << endl;
 }

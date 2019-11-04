@@ -48,6 +48,9 @@ private:
 
   float axNoise_;
   float ayNoise_;
+
+public:
+  int timeCounter_;
 };
 
 #endif // FusionEKF_H_
