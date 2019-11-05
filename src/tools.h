@@ -27,6 +27,8 @@ public:
    * A helper method to calculate Jacobians.
    */
   Eigen::MatrixXd calculateJacobian(const Eigen::VectorXd &states, float tol);
+
+  float fixAngle(const float &angle);
 };
 
 #endif // TOOLS_H_

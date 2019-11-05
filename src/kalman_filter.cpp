@@ -107,8 +107,9 @@ void KalmanFilter::update(const VectorXd &measurements, const MatrixXd &measurem
 
 }
 
-void KalmanFilter::updateEKF(const VectorXd &measurements, const VectorXd &mappedStates, 
-  const MatrixXd &measurementMatrix, const MatrixXd &measurementCovMatrix)
+//void KalmanFilter::updateEKF(const VectorXd &measurements, const VectorXd &mappedStates, 
+//  const MatrixXd &measurementMatrix, const MatrixXd &measurementCovMatrix)
+void KalmanFilter::updateEKF(const VectorXd &yVector, const MatrixXd &measurementMatrix, const MatrixXd &measurementCovMatrix)
 {
   /**
    * update the state by using Extended Kalman Filter equations
@@ -127,7 +128,7 @@ void KalmanFilter::updateEKF(const VectorXd &measurements, const VectorXd &mappe
 
   // Y_{k} = Z_{k_m} - H * X_{kp}
   // Y_{k} = Z_{k_m} - h( X_{kp} )
-  VectorXd yVector = measurements - mappedStates;
+  // VectorXd yVector = measurements - mappedStates;
 
   // K = P_{kp} * H * S^{-1}
   // K = P_{kp} * Hj * S^{-1}

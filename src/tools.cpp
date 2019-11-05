@@ -76,3 +76,10 @@ MatrixXd Tools::calculateJacobian(const VectorXd &states, float tol)
 
    return jacobianMatrix;
 }
+
+float Tools::fixAngle(const float &angle)
+{
+   // float aa = fmod(angle + M_PI, 2.0);
+
+   return fmod(angle + M_PI, 2.0 * M_PI) - M_PI;
+}

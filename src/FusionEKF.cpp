@@ -154,6 +154,7 @@ void FusionEKF::processMeasurement(const MeasurementPackage &measurementPack)
   // https://github.com/udacity/self-driving-car-sim/releases
 
   timeCounter_++;
+  Eigen::VectorXd yVector;
 
   if (measurementPack.sensorType_ == MeasurementPackage::RADAR)
   {
@@ -171,8 +172,14 @@ void FusionEKF::processMeasurement(const MeasurementPackage &measurementPack)
 
     mappedStates << commonTerm, 
       atan2(y, x), 
+      // atan(y / x), 
       (x * xDot + y * yDot) / commonTerm;
 
+    // Y_{k} = Z_{k_m} - H * X_{kp}
+    // Y_{k} = Z_{k_m} - h( X_{kp} )
+    yVector = measurementPack.rawMeasurements_ - mappedStates;
+    yVector(1) = tools.fixAngle(yVector(1));
+    
     measurementMatrix = tools.calculateJacobian(ekf_.states_, jacobianTol);
     measurementCovMatrix = covMatrixRadar_;
   }
@@ -186,6 +193,9 @@ void FusionEKF::processMeasurement(const MeasurementPackage &measurementPack)
     // Laser updates
 
     mappedStates = laserMeasurementMatrix_ * ekf_.states_;
+    // Y_{k} = Z_{k_m} - H * X_{kp}
+    // Y_{k} = Z_{k_m} - h( X_{kp} )
+    yVector = measurementPack.rawMeasurements_ - mappedStates;
     measurementMatrix = laserMeasurementMatrix_; 
     measurementCovMatrix = covMatrixLaser_;
   }
@@ -194,11 +204,11 @@ void FusionEKF::processMeasurement(const MeasurementPackage &measurementPack)
   {
     cout << "new measurement:" << measurementPack.rawMeasurements_ << endl;
     cout << "mappedStates:" << mappedStates << endl;
-    cout << "measurementMatrix:" << measurementMatrix << endl;
-    cout << "measurementCovMatrix:" << measurementCovMatrix << endl;
+    cout << "yVector:" << yVector << endl;
   }
 
-  ekf_.updateEKF(measurementPack.rawMeasurements_, mappedStates, measurementMatrix, measurementCovMatrix);
+  // ekf_.updateEKF(measurementPack.rawMeasurements_, mappedStates, measurementMatrix, measurementCovMatrix);
+  ekf_.updateEKF(yVector, measurementMatrix, measurementCovMatrix);
 
   if(timeCounter_ >= 270 && timeCounter_ <= 275)
   {
