@@ -71,7 +71,7 @@ int main()
 
         if (event == "telemetry")
         {
-          MeasurementPackage meas_package;
+          MeasurementPackage measurementPack;
 
           // j[1] is the data JSON object
           string sensor_measurement = j[1]["sensor_measurement"];
@@ -86,29 +86,46 @@ int main()
 
           if (sensor_type.compare("L") == 0)
           {
-            meas_package.sensorType_ = MeasurementPackage::LASER;
-            meas_package.rawMeasurements_ = VectorXd(2);
+            measurementPack.sensorType_ = MeasurementPackage::LASER;
+            measurementPack.rawMeasurements_ = VectorXd(2);
             float px;
             float py;
             iss >> px;
             iss >> py;
-            meas_package.rawMeasurements_ << px, py;
+            measurementPack.rawMeasurements_ << px, py;
             iss >> timestamp;
-            meas_package.timestamp_ = timestamp;
+            measurementPack.timestamp_ = timestamp;
+
+
+            /*
+            if(fusionEKF.timeCounter_ > 0)
+            {
+              string msg = "42[\"manual\",{}]";
+              ws.send(msg.data(), msg.length(), uWS::OpCode::TEXT);
+
+              return;
+            }
+            */
           }
           else if (sensor_type.compare("R") == 0)
           {
-            meas_package.sensorType_ = MeasurementPackage::RADAR;
-            meas_package.rawMeasurements_ = VectorXd(3);
+            measurementPack.sensorType_ = MeasurementPackage::RADAR;
+            measurementPack.rawMeasurements_ = VectorXd(3);
             float ro;
             float theta;
             float ro_dot;
             iss >> ro;
             iss >> theta;
             iss >> ro_dot;
-            meas_package.rawMeasurements_ << ro, theta, ro_dot;
+            measurementPack.rawMeasurements_ << ro, theta, ro_dot;
             iss >> timestamp;
-            meas_package.timestamp_ = timestamp;
+            measurementPack.timestamp_ = timestamp;
+
+
+            // string msg = "42[\"manual\",{}]";
+            // ws.send(msg.data(), msg.length(), uWS::OpCode::TEXT);
+
+            // return;          
           }
 
           float x_gt;
@@ -128,7 +145,7 @@ int main()
           ground_truth.push_back(gt_values);
 
           // Call ProcessMeasurement(meas_package) for Kalman filter
-          fusionEKF.processMeasurement(meas_package);
+          fusionEKF.processMeasurement(measurementPack);
 
           // Push the current estimated x,y positon from the Kalman filter's
           //   state vector
@@ -147,17 +164,20 @@ int main()
 
           estimations.push_back(estimate);
 
-          VectorXd RMSE = tools.calculateRMSE(estimations, ground_truth);
+          // VectorXd RMSE = tools.calculateRMSE(estimations, ground_truth);
+          fusionEKF.rmseVector_ = tools.calculateRMSE(estimations, ground_truth);
 
-          std::cout << "Accuracy RMSE: " << RMSE << std::endl;
+          std::cout << "Accuracy RMSE: " << fusionEKF.rmseVector_ << std::endl;
+
+          fusionEKF.writeResultsToFile(measurementPack);
 
           json msgJson;
           msgJson["estimate_x"] = p_x;
           msgJson["estimate_y"] = p_y;
-          msgJson["rmse_x"] = RMSE(0);
-          msgJson["rmse_y"] = RMSE(1);
-          msgJson["rmse_vx"] = RMSE(2);
-          msgJson["rmse_vy"] = RMSE(3);
+          msgJson["rmse_x"] = fusionEKF.rmseVector_(0);
+          msgJson["rmse_y"] = fusionEKF.rmseVector_(1);
+          msgJson["rmse_vx"] = fusionEKF.rmseVector_(2);
+          msgJson["rmse_vy"] = fusionEKF.rmseVector_(3);
           auto msg = "42[\"estimate_marker\"," + msgJson.dump() + "]";
           // std::cout << msg << std::endl;
           ws.send(msg.data(), msg.length(), uWS::OpCode::TEXT);

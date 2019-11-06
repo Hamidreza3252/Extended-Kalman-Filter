@@ -51,6 +51,7 @@ private:
 
 public:
   int timeCounter_;
+  Eigen::VectorXd rmseVector_;
 
   void writeResultsToFile(const MeasurementPackage &measurementPack);
 };

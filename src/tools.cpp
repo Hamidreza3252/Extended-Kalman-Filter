@@ -69,15 +69,15 @@ VectorXd Tools::calculateRMSE(const vector<VectorXd> &estimations,
    */
 
 	VectorXd incrementalErrors;
-	VectorXd rsmeVector = Eigen::VectorXd::Zero(4);
+	Eigen::VectorXd rmseVector = Eigen::VectorXd::Zero(4);
 
 	if (estimations.size() != groundTruths.size() || estimations.size() == 0)
 	{
 		std::cout << "Invaid estimation or groundtruth data" << std::endl;
 
-		rsmeVector = VectorXd::Ones(4) * -1.0;
+		rmseVector = VectorXd::Ones(4) * -1.0;
 
-		return rsmeVector;
+		return rmseVector;
 	}
 
 	for (unsigned int i = 0; i < estimations.size(); i++)
@@ -85,12 +85,12 @@ VectorXd Tools::calculateRMSE(const vector<VectorXd> &estimations,
 		incrementalErrors = groundTruths[i] - estimations[i];
 
 		// coefficient-wise multiplication
-		rsmeVector = rsmeVector.array() + incrementalErrors.array() * incrementalErrors.array();
+		rmseVector = rmseVector.array() + incrementalErrors.array() * incrementalErrors.array();
 	}
 
-	rsmeVector = (rsmeVector / estimations.size()).array().sqrt();
+	rmseVector = (rmseVector / estimations.size()).array().sqrt();
 
-	return rsmeVector;
+	return rmseVector;
 }
 
 MatrixXd Tools::calculateJacobian(const VectorXd &states, float tol)

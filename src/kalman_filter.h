@@ -58,6 +58,7 @@ public:
 
   // state vector, X
   Eigen::VectorXd states_;
+  Eigen::VectorXd mappedStates_;
 
   // state covariance matrix, P
   Eigen::MatrixXd stateCovMatrix_;

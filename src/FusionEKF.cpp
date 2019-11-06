@@ -140,7 +140,7 @@ void FusionEKF::processMeasurement(const MeasurementPackage &measurementPack)
   const float &xDot = ekf_.states_[2];
   const float &yDot = ekf_.states_[3];
 
-  Eigen::VectorXd mappedStates;
+  // Eigen::VectorXd mappedStates;
   Eigen::MatrixXd measurementMatrix;
   Eigen::MatrixXd measurementCovMatrix;
   float jacobianTol = 1e-4;
@@ -153,16 +153,16 @@ void FusionEKF::processMeasurement(const MeasurementPackage &measurementPack)
   if (measurementPack.sensorType_ == MeasurementPackage::RADAR)
   {
     // Radar updates
-    mappedStates = Eigen::VectorXd(3);
+    ekf_.mappedStates_ = Eigen::VectorXd(3);
 
     float commonTerm = sqrt(x*x + y*y);
 
-    mappedStates << commonTerm, 
+    ekf_.mappedStates_ << commonTerm, 
       atan2(y, x), 
       (x * xDot + y * yDot) / commonTerm;
 
     // Y_{k} = Z_{k_m} - h( X_{kp} )
-    yVector = measurementPack.rawMeasurements_ - mappedStates;
+    yVector = measurementPack.rawMeasurements_ - ekf_.mappedStates_;
     yVector(1) = tools.fixAngle(yVector(1));
     
     measurementMatrix = tools.calculateJacobian(ekf_.states_, jacobianTol);
@@ -172,15 +172,14 @@ void FusionEKF::processMeasurement(const MeasurementPackage &measurementPack)
   {
     // Laser updates
 
-    mappedStates = laserMeasurementMatrix_ * ekf_.states_;
+    ekf_.mappedStates_ = laserMeasurementMatrix_ * ekf_.states_;
     // Y_{k} = Z_{k_m} - H * X_{kp}
-    yVector = measurementPack.rawMeasurements_ - mappedStates;
+    yVector = measurementPack.rawMeasurements_ - ekf_.mappedStates_;
     measurementMatrix = laserMeasurementMatrix_; 
     measurementCovMatrix = covMatrixLaser_;
   }
 
   ekf_.updateEKF(yVector, measurementMatrix, measurementCovMatrix);
-  writeResultsToFile(measurementPack);
 
   // print the output
   // cout << "x_ = " << ekf_.states_ << endl;
@@ -190,19 +189,31 @@ void FusionEKF::processMeasurement(const MeasurementPackage &measurementPack)
 void FusionEKF::writeResultsToFile(const MeasurementPackage &measurementPack)
 {
   std::string sensorTypeString;
+  std::string phiString;
 
   if (measurementPack.sensorType_ == MeasurementPackage::RADAR)
   {
     sensorTypeString = "R";
+    phiString = std::to_string(ekf_.mappedStates_[1]);
   }
   else
   {
     sensorTypeString = "L";
+    phiString = " ";
   }
 
   tools.outputFile_ << sensorTypeString
     << ", " << ekf_.states_[0] 
-    <<  ", " << ekf_.states_[1] 
-    <<  ", " << ekf_.states_[2] 
-    <<  ", " << ekf_.states_[3] << "\n";
+    << ", " << ekf_.states_[1] 
+    << ", " << ekf_.states_[2] 
+    << ", " << ekf_.states_[3]
+
+    <<  ", " << phiString
+
+    << ", " << rmseVector_[0] 
+    << ", " << rmseVector_[1] 
+    << ", " << rmseVector_[2] 
+    << ", " << rmseVector_[3]
+
+    << "\n";
 }
