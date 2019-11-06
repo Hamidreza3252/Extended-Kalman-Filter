@@ -51,6 +51,8 @@ private:
 
 public:
   int timeCounter_;
+
+  void writeResultsToFile(const MeasurementPackage &measurementPack);
 };
 
 #endif // FusionEKF_H_

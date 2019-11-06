@@ -126,10 +126,6 @@ void KalmanFilter::updateEKF(const VectorXd &yVector, const MatrixXd &measuremen
   MatrixXd sMatrix = measurementMatrix * stateCovMatrix_ * measurementMatrixTranspose + measurementCovMatrix;
   MatrixXd sMatrixInv = sMatrix.inverse();
 
-  // Y_{k} = Z_{k_m} - H * X_{kp}
-  // Y_{k} = Z_{k_m} - h( X_{kp} )
-  // VectorXd yVector = measurements - mappedStates;
-
   // K = P_{kp} * H * S^{-1}
   // K = P_{kp} * Hj * S^{-1}
   MatrixXd kalmanGain = stateCovMatrix_ * measurementMatrixTranspose * sMatrixInv;

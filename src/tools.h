@@ -1,6 +1,7 @@
 #ifndef TOOLS_H_
 #define TOOLS_H_
 
+#include <fstream>
 #include <vector>
 #include "eigen-323c052e1731/Eigen/Dense"
 
@@ -16,6 +17,11 @@ public:
    * Destructor.
    */
   virtual ~Tools();
+
+  std::ofstream outputFile_;
+
+  void openResultsLogFile(const std::string &fileName);
+  void closeResultsLogFile(void);
 
   /**
    * A helper method to calculate RMSE.

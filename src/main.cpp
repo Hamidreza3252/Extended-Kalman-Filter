@@ -34,18 +34,6 @@ string hasData(string s)
 }
 
 // ====================================================================================================================
-void readDataFromSocket(void)
-{
-
-}
-
-// ====================================================================================================================
-void readDataFromFile(void)
-{
-
-}
-
-// ====================================================================================================================
 int main()
 {
   enum InputDataSource
@@ -161,12 +149,7 @@ int main()
 
           VectorXd RMSE = tools.calculateRMSE(estimations, ground_truth);
 
-          if(fusionEKF.timeCounter_ >= 270 && fusionEKF.timeCounter_ <= 275)
-          {
-            std::cout << "Accuracy RMSE: " << RMSE << std::endl;
-          }
-
-          // std::cout << "Accuracy RMSE: " << RMSE << std::endl;
+          std::cout << "Accuracy RMSE: " << RMSE << std::endl;
 
           json msgJson;
           msgJson["estimate_x"] = p_x;

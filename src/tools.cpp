@@ -7,79 +7,127 @@ using std::vector;
 
 Tools::Tools()
 {
+	openResultsLogFile("../results/results.txt");
 }
 
 Tools::~Tools()
 {
+	closeResultsLogFile();
 }
 
-VectorXd Tools::calculateRMSE(const vector<VectorXd> &estimations,
-                              const vector<VectorXd> &groundTruths)
+// ====================================================================================================================
+void Tools::openResultsLogFile(const std::string &fileName)
 {
-   /**
+	if (outputFile_.is_open())
+	{
+		outputFile_.close();
+	}
+
+	std::ios_base::iostate exceptionMask = outputFile_.exceptions() | std::ios::failbit;
+	outputFile_.exceptions(exceptionMask);
+
+	try
+	{
+		outputFile_.open(fileName, std::fstream::out);
+		// outputFile_.open(fileName, std::ios::out);
+
+		if (!outputFile_.is_open())
+		{
+			std::cerr << "Could not open file " << fileName << " to write the results \n";
+
+			return;
+		}
+	}
+	catch(const std::ios_base::failure &e)
+	{
+		std::cout << e.code().value() << std::endl;
+		std::cout << e.code().message() << std::endl;
+		closeResultsLogFile();
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+		closeResultsLogFile();
+	}
+}
+
+// ====================================================================================================================
+void Tools::closeResultsLogFile(void)
+{
+	if (outputFile_)
+	{
+		outputFile_.close();
+	}
+}
+
+// ====================================================================================================================
+VectorXd Tools::calculateRMSE(const vector<VectorXd> &estimations,
+															const vector<VectorXd> &groundTruths)
+{
+	/**
    * Calculate the RMSE here.
    */
 
-   VectorXd incrementalErrors;
-   VectorXd rsmeVector = Eigen::VectorXd::Zero(4);
+	VectorXd incrementalErrors;
+	VectorXd rsmeVector = Eigen::VectorXd::Zero(4);
 
-   if (estimations.size() != groundTruths.size() || estimations.size() == 0)
-   {
-      std::cout << "Invaid estimation or groundtruth data" << std::endl;
+	if (estimations.size() != groundTruths.size() || estimations.size() == 0)
+	{
+		std::cout << "Invaid estimation or groundtruth data" << std::endl;
 
-      rsmeVector = VectorXd::Ones(4) * -1.0;
+		rsmeVector = VectorXd::Ones(4) * -1.0;
 
-      return rsmeVector;
-   }
+		return rsmeVector;
+	}
 
-   for (unsigned int i = 0; i < estimations.size(); i++)
-   {
-      incrementalErrors = groundTruths[i] - estimations[i];
+	for (unsigned int i = 0; i < estimations.size(); i++)
+	{
+		incrementalErrors = groundTruths[i] - estimations[i];
 
-      // coefficient-wise multiplication
-      rsmeVector = rsmeVector.array() + incrementalErrors.array() * incrementalErrors.array();
-   }
+		// coefficient-wise multiplication
+		rsmeVector = rsmeVector.array() + incrementalErrors.array() * incrementalErrors.array();
+	}
 
-   rsmeVector = (rsmeVector / estimations.size()).array().sqrt();
+	rsmeVector = (rsmeVector / estimations.size()).array().sqrt();
 
-   return rsmeVector;
+	return rsmeVector;
 }
 
 MatrixXd Tools::calculateJacobian(const VectorXd &states, float tol)
 {
-   /**
+	/**
    * Calculate a Jacobian here.
    */
-   // MatrixXd jacobianMatrix = MatrixXd(3, 4);
-   MatrixXd jacobianMatrix = MatrixXd::Zero(3, 4);
+	// MatrixXd jacobianMatrix = MatrixXd(3, 4);
+	MatrixXd jacobianMatrix = MatrixXd::Zero(3, 4);
 
-   const float &x = states(0);
-   const float &y = states(1);
-   const float &vx = states(2);
-   const float &vy = states(3);
+	const float &x = states(0);
+	const float &y = states(1);
+	const float &vx = states(2);
+	const float &vy = states(3);
 
-   float denomBase = x * x + y * y;
+	float denomBase = x * x + y * y;
 
-   if (fabs(denomBase) < tol)
-   {
-      std::cout << "Jacobian matrix error - division by zero" << std::endl;
+	if (fabs(denomBase) < tol)
+	{
+		std::cout << "Jacobian matrix error - division by zero" << std::endl;
 
-      return jacobianMatrix;
-   }
+		return jacobianMatrix;
+	}
 
-   float denomBase_1_2 = sqrt(denomBase);
-   float denomBase_3_2 = denomBase * denomBase_1_2;
+	float denomBase_1_2 = sqrt(denomBase);
+	float denomBase_3_2 = denomBase * denomBase_1_2;
 
-   jacobianMatrix << x / denomBase_1_2, y / denomBase_1_2, 0.0, 0.0,
-       -y / denomBase, x / denomBase, 0.0, 0.0,
-       y * (vx * y - vy * x) / denomBase_3_2, x * (vy * x - vx * y) / denomBase_3_2, x / denomBase_1_2, y / denomBase_1_2;
+	jacobianMatrix << x / denomBase_1_2, y / denomBase_1_2, 0.0, 0.0,
+			-y / denomBase, x / denomBase, 0.0, 0.0,
+			y * (vx * y - vy * x) / denomBase_3_2, x * (vy * x - vx * y) / denomBase_3_2, x / denomBase_1_2, y / denomBase_1_2;
 
-   return jacobianMatrix;
+	return jacobianMatrix;
 }
 
 float Tools::fixAngle(const float &angle)
 {
-   // float aa = fmod(angle + M_PI, 2.0);
+	// float aa = fmod(angle + M_PI, 2.0);
 
-   return fmod(angle + M_PI, 2.0 * M_PI) - M_PI;
+	return fmod(angle + M_PI, 2.0 * M_PI) - M_PI;
 }

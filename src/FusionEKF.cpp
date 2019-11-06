@@ -124,12 +124,6 @@ void FusionEKF::processMeasurement(const MeasurementPackage &measurementPack)
   float deltaT = (measurementPack.timestamp_ - previousTimestamp_) / 1e6;
   previousTimestamp_ = measurementPack.timestamp_;
 
-  if(timeCounter_ >= 270 && timeCounter_ <= 275)
-  {
-    cout << "Hamid-01 -------------------" << endl;
-    cout << "states before predict:" << ekf_.states_ << endl;
-  }
-
   ekf_.predict(deltaT, axNoise_, ayNoise_);
 
   /**
@@ -159,23 +153,14 @@ void FusionEKF::processMeasurement(const MeasurementPackage &measurementPack)
   if (measurementPack.sensorType_ == MeasurementPackage::RADAR)
   {
     // Radar updates
-    if(timeCounter_ >= 270 && timeCounter_ <= 275)
-    {
-      cout << " ---- Radar ----" << endl;
-    }
-
     mappedStates = Eigen::VectorXd(3);
-
-    // ekf_.states_
 
     float commonTerm = sqrt(x*x + y*y);
 
     mappedStates << commonTerm, 
       atan2(y, x), 
-      // atan(y / x), 
       (x * xDot + y * yDot) / commonTerm;
 
-    // Y_{k} = Z_{k_m} - H * X_{kp}
     // Y_{k} = Z_{k_m} - h( X_{kp} )
     yVector = measurementPack.rawMeasurements_ - mappedStates;
     yVector(1) = tools.fixAngle(yVector(1));
@@ -185,37 +170,39 @@ void FusionEKF::processMeasurement(const MeasurementPackage &measurementPack)
   }
   else
   {
-    if(timeCounter_ >= 270 && timeCounter_ <= 275)
-    {
-      cout << " ---- Lidar ----" << endl;
-    }
-
     // Laser updates
 
     mappedStates = laserMeasurementMatrix_ * ekf_.states_;
     // Y_{k} = Z_{k_m} - H * X_{kp}
-    // Y_{k} = Z_{k_m} - h( X_{kp} )
     yVector = measurementPack.rawMeasurements_ - mappedStates;
     measurementMatrix = laserMeasurementMatrix_; 
     measurementCovMatrix = covMatrixLaser_;
   }
 
-  if(timeCounter_ >= 270 && timeCounter_ <= 275)
-  {
-    cout << "new measurement:" << measurementPack.rawMeasurements_ << endl;
-    cout << "mappedStates:" << mappedStates << endl;
-    cout << "yVector:" << yVector << endl;
-  }
-
-  // ekf_.updateEKF(measurementPack.rawMeasurements_, mappedStates, measurementMatrix, measurementCovMatrix);
   ekf_.updateEKF(yVector, measurementMatrix, measurementCovMatrix);
-
-  if(timeCounter_ >= 270 && timeCounter_ <= 275)
-  {
-    cout << "states after update:" << ekf_.states_ << endl;
-  }
+  writeResultsToFile(measurementPack);
 
   // print the output
   // cout << "x_ = " << ekf_.states_ << endl;
   // cout << "P_ = " << ekf_.stateCovMatrix_ << endl;
+}
+
+void FusionEKF::writeResultsToFile(const MeasurementPackage &measurementPack)
+{
+  std::string sensorTypeString;
+
+  if (measurementPack.sensorType_ == MeasurementPackage::RADAR)
+  {
+    sensorTypeString = "R";
+  }
+  else
+  {
+    sensorTypeString = "L";
+  }
+
+  tools.outputFile_ << sensorTypeString
+    << ", " << ekf_.states_[0] 
+    <<  ", " << ekf_.states_[1] 
+    <<  ", " << ekf_.states_[2] 
+    <<  ", " << ekf_.states_[3] << "\n";
 }
