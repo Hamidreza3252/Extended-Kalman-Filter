@@ -33,9 +33,6 @@ public:
   KalmanFilter ekf_;
 
 private:
-  // check whether the tracking toolbox was initialized or not (first measurement)
-  bool isInitialized_;
-
   // previous timestamp
   long long previousTimestamp_;
 
@@ -50,6 +47,9 @@ private:
   float ayNoise_;
 
 public:
+  // check whether the tracking toolbox was initialized or not (first measurement)
+  bool isInitialized_;
+
   int timeCounter_;
   Eigen::VectorXd rmseVector_;
 

@@ -38,8 +38,8 @@ int main()
 {
   enum InputDataSource
   {
-      SOCKET,
-      FILE
+    SOCKET,
+    FILE
   } inputDataSource;
 
   inputDataSource = InputDataSource::SOCKET;
@@ -54,8 +54,7 @@ int main()
   vector<VectorXd> estimations;
   vector<VectorXd> ground_truth;
 
-  h.onMessage([&fusionEKF, &tools, &estimations, &ground_truth, &inputDataSource](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length, uWS::OpCode opCode)
-  {
+  h.onMessage([&fusionEKF, &tools, &estimations, &ground_truth, &inputDataSource](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length, uWS::OpCode opCode) {
     // "42" at the start of the message means there's a websocket message event.
     // The 4 signifies a websocket message
     // The 2 signifies a websocket event
@@ -96,7 +95,6 @@ int main()
             iss >> timestamp;
             measurementPack.timestamp_ = timestamp;
 
-
             /*
             if(fusionEKF.timeCounter_ > 0)
             {
@@ -121,11 +119,10 @@ int main()
             iss >> timestamp;
             measurementPack.timestamp_ = timestamp;
 
-
             // string msg = "42[\"manual\",{}]";
             // ws.send(msg.data(), msg.length(), uWS::OpCode::TEXT);
 
-            // return;          
+            // return;
           }
 
           float x_gt;
@@ -144,8 +141,24 @@ int main()
           gt_values(3) = vy_gt;
           ground_truth.push_back(gt_values);
 
+          
+          /*
+          // Uncomment it to skip either Radar or Lidar for Studying purposes
+          if(!fusionEKF.isInitialized_)
+          {
+            fusionEKF.processMeasurement(measurementPack);
+          }
+
+          if (sensor_type.compare("R") == 0)
+          {
+            fusionEKF.processMeasurement(measurementPack);
+          }
+          */
+
+
+
           // Call ProcessMeasurement(meas_package) for Kalman filter
-          fusionEKF.processMeasurement(measurementPack);
+          // fusionEKF.processMeasurement(measurementPack);
 
           // Push the current estimated x,y positon from the Kalman filter's
           //   state vector
