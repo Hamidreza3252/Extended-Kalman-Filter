@@ -141,24 +141,26 @@ int main()
           gt_values(3) = vy_gt;
           ground_truth.push_back(gt_values);
 
-          
-          /*
-          // Uncomment it to skip either Radar or Lidar for Studying purposes
-          if(!fusionEKF.isInitialized_)
+          bool skipOneSensorType = false;
+
+          if(skipOneSensorType)
           {
+            // Uncomment it to skip either Radar or Lidar for Studying purposes
+            if(!fusionEKF.isInitialized_)
+            {
+              fusionEKF.processMeasurement(measurementPack);
+            }
+
+            if (sensor_type.compare("R") == 0)
+            {
+              fusionEKF.processMeasurement(measurementPack);
+            }
+          }
+          else
+          {
+            // Call ProcessMeasurement(meas_package) for Kalman filter
             fusionEKF.processMeasurement(measurementPack);
           }
-
-          if (sensor_type.compare("R") == 0)
-          {
-            fusionEKF.processMeasurement(measurementPack);
-          }
-          */
-
-
-
-          // Call ProcessMeasurement(meas_package) for Kalman filter
-          // fusionEKF.processMeasurement(measurementPack);
 
           // Push the current estimated x,y positon from the Kalman filter's
           //   state vector
