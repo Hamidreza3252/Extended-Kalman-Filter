@@ -186,7 +186,7 @@ void FusionEKF::processMeasurement(const MeasurementPackage &measurementPack)
   // cout << "P_ = " << ekf_.stateCovMatrix_ << endl;
 }
 
-void FusionEKF::writeResultsToFile(const MeasurementPackage &measurementPack)
+void FusionEKF::writeResultsToFile(const MeasurementPackage &measurementPack, const Eigen::VectorXd &groundTruths)
 {
   std::string sensorTypeString;
   std::string phiString;
@@ -203,17 +203,22 @@ void FusionEKF::writeResultsToFile(const MeasurementPackage &measurementPack)
   }
 
   tools.outputFile_ << sensorTypeString
-    << ", " << ekf_.states_[0] 
-    << ", " << ekf_.states_[1] 
-    << ", " << ekf_.states_[2] 
-    << ", " << ekf_.states_[3]
+    << "," << ekf_.states_[0] 
+    << "," << ekf_.states_[1] 
+    << "," << ekf_.states_[2] 
+    << "," << ekf_.states_[3]
 
-    <<  ", " << phiString
+    << "," << phiString
 
-    << ", " << rmseVector_[0] 
-    << ", " << rmseVector_[1] 
-    << ", " << rmseVector_[2] 
-    << ", " << rmseVector_[3]
+    << "," << rmseVector_[0] 
+    << "," << rmseVector_[1] 
+    << "," << rmseVector_[2] 
+    << "," << rmseVector_[3]
+
+    << "," << groundTruths[0] 
+    << "," << groundTruths[1] 
+    << "," << groundTruths[2] 
+    << "," << groundTruths[3]
 
     << "\n";
 }

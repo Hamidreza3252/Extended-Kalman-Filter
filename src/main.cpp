@@ -151,7 +151,7 @@ int main()
               fusionEKF.processMeasurement(measurementPack);
             }
 
-            if (sensor_type.compare("R") == 0)
+            if (sensor_type.compare("L") == 0)
             {
               fusionEKF.processMeasurement(measurementPack);
             }
@@ -184,7 +184,7 @@ int main()
 
           std::cout << "Accuracy RMSE: " << fusionEKF.rmseVector_ << std::endl;
 
-          fusionEKF.writeResultsToFile(measurementPack);
+          fusionEKF.writeResultsToFile(measurementPack, gt_values);
 
           json msgJson;
           msgJson["estimate_x"] = p_x;

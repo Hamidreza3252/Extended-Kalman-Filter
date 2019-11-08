@@ -53,7 +53,7 @@ public:
   int timeCounter_;
   Eigen::VectorXd rmseVector_;
 
-  void writeResultsToFile(const MeasurementPackage &measurementPack);
+  void writeResultsToFile(const MeasurementPackage &measurementPack, const Eigen::VectorXd &groundTruths);
 };
 
 #endif // FusionEKF_H_
