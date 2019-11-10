@@ -20,7 +20,7 @@ public:
 
   std::ofstream outputFile_;
 
-  void openResultsLogFile(const std::string &fileName);
+  void openResultsLogFile(const std::string &filePath, const std::string &fileName);
   void closeResultsLogFile(void);
 
   /**
