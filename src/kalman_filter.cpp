@@ -10,15 +10,13 @@ using Eigen::VectorXd;
 
 KalmanFilter::KalmanFilter()
 {
-
 }
 
 KalmanFilter::~KalmanFilter()
 {
-
 }
 
-// void KalmanFilter::init(const Eigen::MatrixXd &H_in, const Eigen::MatrixXd &Hj_in, const Eigen::MatrixXd &R_laser_in, 
+// void KalmanFilter::init(const Eigen::MatrixXd &H_in, const Eigen::MatrixXd &Hj_in, const Eigen::MatrixXd &R_laser_in,
 //  const Eigen::MatrixXd &R_radar_in, const float &axNoiseIn, const float &ayNoiseIn)
 
 void KalmanFilter::init(void)
@@ -39,17 +37,17 @@ void KalmanFilter::init(void)
 
   // initial state covariance matrix P
   stateCovMatrix_ = MatrixXd(4, 4);
-  stateCovMatrix_ << 1.0, 0.0, 0.0, 0.0, 
-    0.0, 1.0, 0.0, 0.0, 
-    0.0, 0.0, 1000.0, 0.0, 
-    0.0, 0.0, 0.0, 1000.0;
+  stateCovMatrix_ << 1.0, 0.0, 0.0, 0.0,
+      0.0, 1.0, 0.0, 0.0,
+      0.0, 0.0, 1000.0, 0.0,
+      0.0, 0.0, 0.0, 1000.0;
 
   // initialize state transition matrix, F
   stateTransMatrix_ = MatrixXd(4, 4);
-  stateTransMatrix_ << 1.0, 0.0, 0.0, 0.0, 
-    0.0, 1.0, 0.0, 0.0, 
-    0.0, 0.0, 1.0, 0.0, 
-    0.0, 0.0, 0.0, 1.0;
+  stateTransMatrix_ << 1.0, 0.0, 0.0, 0.0,
+      0.0, 1.0, 0.0, 0.0,
+      0.0, 0.0, 1.0, 0.0,
+      0.0, 0.0, 0.0, 1.0;
 
   // initialize process covariance matrix, Q
   processCovMatrix_ = MatrixXd(4, 4);
@@ -76,21 +74,21 @@ void KalmanFilter::predict(const float &deltaT, float axNoise, float ayNoise)
    * predict the state
    */
 
-  // updating state transition matrix 
-  stateTransMatrix_ << 1.0, 0.0, deltaT, 0.0, 
-    0.0, 1.0, 0.0, deltaT, 
-    0.0, 0.0, 1.0, 0.0, 
-    0.0, 0.0, 0.0, 1.0;
+  // updating state transition matrix
+  stateTransMatrix_ << 1.0, 0.0, deltaT, 0.0,
+      0.0, 1.0, 0.0, deltaT,
+      0.0, 0.0, 1.0, 0.0,
+      0.0, 0.0, 0.0, 1.0;
 
-  // updating process covariance matrix 
+  // updating process covariance matrix
   float dt2 = deltaT * deltaT;
   float dt3 = dt2 * deltaT;
   float dt4 = dt3 * deltaT;
 
-  processCovMatrix_ << 0.25 * dt4 * axNoise, 0.0, 0.5 * dt3 * axNoise, 0.0, 
-    0.0, 0.25 * dt4 * ayNoise, 0.0, 0.5 * dt3 * ayNoise, 
-    0.0, 0.0, dt2 * axNoise, 0.0, 
-    0.0, 0.0, 0.0, dt2 * ayNoise;
+  processCovMatrix_ << 0.25 * dt4 * axNoise, 0.0, 0.5 * dt3 * axNoise, 0.0,
+      0.0, 0.25 * dt4 * ayNoise, 0.0, 0.5 * dt3 * ayNoise,
+      0.0, 0.0, dt2 * axNoise, 0.0,
+      0.0, 0.0, 0.0, dt2 * ayNoise;
   processCovMatrix_(2, 0) = processCovMatrix_(0, 2);
   processCovMatrix_(3, 1) = processCovMatrix_(1, 3);
 
@@ -104,10 +102,9 @@ void KalmanFilter::predict(const float &deltaT, float axNoise, float ayNoise)
 
 void KalmanFilter::update(const VectorXd &measurements, const MatrixXd &measurementMatrix, const MatrixXd &measurementCovMatrix)
 {
-
 }
 
-//void KalmanFilter::updateEKF(const VectorXd &measurements, const VectorXd &mappedStates, 
+//void KalmanFilter::updateEKF(const VectorXd &measurements, const VectorXd &mappedStates,
 //  const MatrixXd &measurementMatrix, const MatrixXd &measurementCovMatrix)
 void KalmanFilter::updateEKF(const VectorXd &yVector, const MatrixXd &measurementMatrix, const MatrixXd &measurementCovMatrix)
 {

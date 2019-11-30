@@ -60,54 +60,54 @@ include CMakeFiles/ExtendedKF.dir/flags.make
 CMakeFiles/ExtendedKF.dir/src/main.cpp.o: CMakeFiles/ExtendedKF.dir/flags.make
 CMakeFiles/ExtendedKF.dir/src/main.cpp.o: ../src/main.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/hamidreza/Documents/Projects/Extended-Kalman-Filter/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/ExtendedKF.dir/src/main.cpp.o"
-	/bin/g++-8  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ExtendedKF.dir/src/main.cpp.o -c /home/hamidreza/Documents/Projects/Extended-Kalman-Filter/src/main.cpp
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ExtendedKF.dir/src/main.cpp.o -c /home/hamidreza/Documents/Projects/Extended-Kalman-Filter/src/main.cpp
 
 CMakeFiles/ExtendedKF.dir/src/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ExtendedKF.dir/src/main.cpp.i"
-	/bin/g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/hamidreza/Documents/Projects/Extended-Kalman-Filter/src/main.cpp > CMakeFiles/ExtendedKF.dir/src/main.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/hamidreza/Documents/Projects/Extended-Kalman-Filter/src/main.cpp > CMakeFiles/ExtendedKF.dir/src/main.cpp.i
 
 CMakeFiles/ExtendedKF.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ExtendedKF.dir/src/main.cpp.s"
-	/bin/g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/hamidreza/Documents/Projects/Extended-Kalman-Filter/src/main.cpp -o CMakeFiles/ExtendedKF.dir/src/main.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/hamidreza/Documents/Projects/Extended-Kalman-Filter/src/main.cpp -o CMakeFiles/ExtendedKF.dir/src/main.cpp.s
 
 CMakeFiles/ExtendedKF.dir/src/tools.cpp.o: CMakeFiles/ExtendedKF.dir/flags.make
 CMakeFiles/ExtendedKF.dir/src/tools.cpp.o: ../src/tools.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/hamidreza/Documents/Projects/Extended-Kalman-Filter/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/ExtendedKF.dir/src/tools.cpp.o"
-	/bin/g++-8  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ExtendedKF.dir/src/tools.cpp.o -c /home/hamidreza/Documents/Projects/Extended-Kalman-Filter/src/tools.cpp
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ExtendedKF.dir/src/tools.cpp.o -c /home/hamidreza/Documents/Projects/Extended-Kalman-Filter/src/tools.cpp
 
 CMakeFiles/ExtendedKF.dir/src/tools.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ExtendedKF.dir/src/tools.cpp.i"
-	/bin/g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/hamidreza/Documents/Projects/Extended-Kalman-Filter/src/tools.cpp > CMakeFiles/ExtendedKF.dir/src/tools.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/hamidreza/Documents/Projects/Extended-Kalman-Filter/src/tools.cpp > CMakeFiles/ExtendedKF.dir/src/tools.cpp.i
 
 CMakeFiles/ExtendedKF.dir/src/tools.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ExtendedKF.dir/src/tools.cpp.s"
-	/bin/g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/hamidreza/Documents/Projects/Extended-Kalman-Filter/src/tools.cpp -o CMakeFiles/ExtendedKF.dir/src/tools.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/hamidreza/Documents/Projects/Extended-Kalman-Filter/src/tools.cpp -o CMakeFiles/ExtendedKF.dir/src/tools.cpp.s
 
 CMakeFiles/ExtendedKF.dir/src/FusionEKF.cpp.o: CMakeFiles/ExtendedKF.dir/flags.make
 CMakeFiles/ExtendedKF.dir/src/FusionEKF.cpp.o: ../src/FusionEKF.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/hamidreza/Documents/Projects/Extended-Kalman-Filter/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/ExtendedKF.dir/src/FusionEKF.cpp.o"
-	/bin/g++-8  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ExtendedKF.dir/src/FusionEKF.cpp.o -c /home/hamidreza/Documents/Projects/Extended-Kalman-Filter/src/FusionEKF.cpp
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ExtendedKF.dir/src/FusionEKF.cpp.o -c /home/hamidreza/Documents/Projects/Extended-Kalman-Filter/src/FusionEKF.cpp
 
 CMakeFiles/ExtendedKF.dir/src/FusionEKF.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ExtendedKF.dir/src/FusionEKF.cpp.i"
-	/bin/g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/hamidreza/Documents/Projects/Extended-Kalman-Filter/src/FusionEKF.cpp > CMakeFiles/ExtendedKF.dir/src/FusionEKF.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/hamidreza/Documents/Projects/Extended-Kalman-Filter/src/FusionEKF.cpp > CMakeFiles/ExtendedKF.dir/src/FusionEKF.cpp.i
 
 CMakeFiles/ExtendedKF.dir/src/FusionEKF.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ExtendedKF.dir/src/FusionEKF.cpp.s"
-	/bin/g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/hamidreza/Documents/Projects/Extended-Kalman-Filter/src/FusionEKF.cpp -o CMakeFiles/ExtendedKF.dir/src/FusionEKF.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/hamidreza/Documents/Projects/Extended-Kalman-Filter/src/FusionEKF.cpp -o CMakeFiles/ExtendedKF.dir/src/FusionEKF.cpp.s
 
 CMakeFiles/ExtendedKF.dir/src/kalman_filter.cpp.o: CMakeFiles/ExtendedKF.dir/flags.make
 CMakeFiles/ExtendedKF.dir/src/kalman_filter.cpp.o: ../src/kalman_filter.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/hamidreza/Documents/Projects/Extended-Kalman-Filter/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/ExtendedKF.dir/src/kalman_filter.cpp.o"
-	/bin/g++-8  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ExtendedKF.dir/src/kalman_filter.cpp.o -c /home/hamidreza/Documents/Projects/Extended-Kalman-Filter/src/kalman_filter.cpp
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ExtendedKF.dir/src/kalman_filter.cpp.o -c /home/hamidreza/Documents/Projects/Extended-Kalman-Filter/src/kalman_filter.cpp
 
 CMakeFiles/ExtendedKF.dir/src/kalman_filter.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ExtendedKF.dir/src/kalman_filter.cpp.i"
-	/bin/g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/hamidreza/Documents/Projects/Extended-Kalman-Filter/src/kalman_filter.cpp > CMakeFiles/ExtendedKF.dir/src/kalman_filter.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/hamidreza/Documents/Projects/Extended-Kalman-Filter/src/kalman_filter.cpp > CMakeFiles/ExtendedKF.dir/src/kalman_filter.cpp.i
 
 CMakeFiles/ExtendedKF.dir/src/kalman_filter.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ExtendedKF.dir/src/kalman_filter.cpp.s"
-	/bin/g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/hamidreza/Documents/Projects/Extended-Kalman-Filter/src/kalman_filter.cpp -o CMakeFiles/ExtendedKF.dir/src/kalman_filter.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/hamidreza/Documents/Projects/Extended-Kalman-Filter/src/kalman_filter.cpp -o CMakeFiles/ExtendedKF.dir/src/kalman_filter.cpp.s
 
 # Object files for target ExtendedKF
 ExtendedKF_OBJECTS = \
