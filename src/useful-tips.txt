@@ -4,3 +4,12 @@ sudo apt-get install --reinstall ca-certificates
 gsettings set org.gnome.shell.extensions.dash-to-dock dock-position TOP
 
 https://stackoverflow.com/questions/9535954/printing-lists-as-tabular-data
+
+
+More Bayes Rule Content from Udacity (https://classroom.udacity.com/courses/st101/lessons/48703346/concepts/483698470923)
+https://betterexplained.com/articles/understanding-bayes-theorem-with-ratios/
+http://greenteapress.com/wp/think-bayes/
+
+https://www.giannistsakiris.com/2008/04/09/virtualbox-access-windows-host-shared-folders-from-ubuntu-guest/
+https://medium.com/audelabs/c-development-using-visual-studio-code-cmake-and-lldb-d0f13d38c563
+https://www.johnlamp.net/cmake-tutorial-1-getting-started.html
