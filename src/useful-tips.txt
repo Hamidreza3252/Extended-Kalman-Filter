@@ -13,3 +13,7 @@ http://greenteapress.com/wp/think-bayes/
 https://www.giannistsakiris.com/2008/04/09/virtualbox-access-windows-host-shared-folders-from-ubuntu-guest/
 https://medium.com/audelabs/c-development-using-visual-studio-code-cmake-and-lldb-d0f13d38c563
 https://www.johnlamp.net/cmake-tutorial-1-getting-started.html
+
+https://www.geeksforgeeks.org/create-shared-folder-host-os-guest-os-virtual-box/
+
+
